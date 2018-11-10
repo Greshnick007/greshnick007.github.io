@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Анимация кнопки</title>
+	<style type="text/css">
+		#button {
+		  width:50px;
+		  height:50px;
+		  background-image:url(sprite_x2.png);
+		  background-position:0% 0%;
+		  cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+<div id="button" onclick="openClose()"></div>
+
+</body>
+	<script type="text/javascript">
+		var tmpX = 0;
+		function open(el) {
+		var openId = setInterval(function() {
+			tmpX = tmpX + 1;
+			el.style.backgroundPosition = "-"+tmpX+"00% -100%";
+			if (tmpX == 9) {clearInterval(openId);}
+		}, 100);
+		}
+
+		function close(el) {
+		var closeId = setInterval(function() {
+			tmpX = tmpX - 1;
+			el.style.backgroundPosition = "-"+tmpX+"00% -100%";
+			if (tmpX == 0) {clearInterval(closeId);}
+		}, 100);
+		}
+
+	function openClose() {
+		if (tmpX == 0) {open(document.getElementById('button'));} else {close(document.getElementById('button'));}
+	}
+
+	</script>
+</html>
