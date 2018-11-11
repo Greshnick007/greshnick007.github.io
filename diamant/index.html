@@ -1,0 +1,139 @@
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="stylesheet" href="css/style.bundle.css">
+
+    <title>Студия веб-дизайна Диамант</title>
+  </head>
+  <body>
+    <header class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div id="menuHumburger" onclick="openClose()"></div>
+          <h1>DИАМАНТ</h1>
+          <h2><span>Стуdия</span><span>dизайна</span></h2>
+          <a class="button" href="#">Подробнее о студии</a>
+          <img src="./img/diamantHeader.png" alt="Диамант облако"/>
+        </div>
+      </div>
+    </header>
+  <section>
+
+  </section>
+  <div class="menuBlock">
+    <ul>
+      <li><a href="#">О студии</a></li>
+      <li><a href="#">Web-дизайн</a></li>
+      <li><a href="#">Полиграфия</a></li>
+      <li><a href="#">Обучение</a></li>
+      <li><a href="#">Трудоустройство</a></li>
+      <li><a href="#">Блог</a></li>
+      <li><a href="#">Контакты</a></li>
+      <li id="separator"></li>
+      <li>+7 (812) 373-32-68</li>
+      <li>diamant@mail.ru</li>
+    </ul>
+    <div class="backgroundCircle"></div>
+  </div>
+
+
+<footer>
+
+</footer>
+
+<script src="js/bundle.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript">
+      var tmpX = 0;
+      function open(el) {
+        var background = document.getElementsByClassName('backgroundCircle')[0];
+        background.style['width'] = '25px';
+        background.style['height'] = '25px';
+        background.style['left'] = "258px";
+        background.style['top'] = "33px";
+        background.style['display'] = "block";
+      el.style["position"] = "fixed";
+      el.style["left"] = "258px";
+      var openId = setInterval(function() {
+      tmpX = tmpX + 1;
+      el.style.backgroundPosition = "-"+tmpX+"00% -100%";
+      background.style['width'] = (parseInt(background.style['width']) + 250)+"px";
+      background.style['height'] = (parseInt(background.style['height']) + 250)+"px";
+      background.style['left'] = (parseInt(background.style['left']) - 125)+"px";
+      background.style['top'] = (parseInt(background.style['top']) - 95)+"px";
+      if (tmpX == 9) {clearInterval(openId); document.getElementsByClassName('menuBlock')[0].children[0].style.display = 'block';}
+      }, 100);
+      }
+
+      function close(el) {
+        var background = document.getElementsByClassName('backgroundCircle')[0];
+        background.style['width'] = '2275px';
+        background.style['height'] = '2275px';
+        background.style['left'] = "-867px";
+        background.style['top'] = "-822px";
+        document.getElementsByClassName('menuBlock')[0].children[0].style.display = 'none';
+      var closeId = setInterval(function() {
+      tmpX = tmpX - 1;
+      el.style.backgroundPosition = "-"+tmpX+"00% -100%";
+      background.style['width'] = (parseInt(background.style['width']) - 250)+"px";
+      background.style['height'] = (parseInt(background.style['height']) - 250)+"px";
+      background.style['left'] = (parseInt(background.style['left']) + 125)+"px";
+      background.style['top'] = (parseInt(background.style['top']) + 95)+"px";
+      if (tmpX == 0) {clearInterval(closeId);
+      background.style['display'] = "none";
+      el.style["position"] = "absolute";
+      el.style["left"] = "203px";}
+      }, 100);
+      }
+
+      function openClose() {
+      if (tmpX == 0) {open(document.getElementById('menuHumburger'));} else {close(document.getElementById('menuHumburger'));}
+      }
+    /*$(document).ready(function(){
+      $('.sliderCourses').slick({
+      slidesToShow: 1,
+      dots: false,
+			autoplaySpeed: 1000,
+			slidesToScroll: 1,
+			variableWidth: true,
+			adaptiveHeight: true,
+			nextArrow: '<img id="arrowRight" src="./img/arrowRight.png" alt="Стрелка вправо"/>',
+			prevArrow: '<img id="arrowLeft" src="./img/arrowLeft.png" alt="Стрелка влево"/>',
+      });
+
+    $(".redItem > a").on("click", function (e) {
+      var anchor = $(this);
+      $('html, body').stop().animate({
+        scrollTop: $($(anchor[0]).attr('href')).offset().top
+      }, 777);
+      e.preventDefault();
+      return false;
+    });
+
+    if ($(window).scrollTop()>="250") $("#buttonUp").fadeIn("slow");
+
+    $(window).scroll(function () {
+      if ($(window).scrollTop()<="250") $("#buttonUp").fadeOut("slow")
+      else $("#buttonUp").fadeIn("slow");
+    });
+
+    $("#buttonUp").on("click", function (e) {
+      var anchor = $(this);
+      $('html, body').stop().animate({
+        scrollTop: 0
+      }, 777);
+      e.preventDefault();
+      return false;
+    });
+  });*/
+</script>
+</body>
+</html>
+
