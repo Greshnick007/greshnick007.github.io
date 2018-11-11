@@ -15,7 +15,6 @@
     <header class="container">
       <div class="row">
         <div class="col-sm-12">
-          <div id="menuHumburger" onclick="openClose()"></div>
           <h1>DИАМАНТ</h1>
           <h2><span>Стуdия</span><span>dизайна</span></h2>
           <a class="button" href="#">Подробнее о студии</a>
@@ -27,6 +26,7 @@
 
   </section>
   <div class="menuBlock">
+    <div id="menuHumburger"></div>
     <ul>
       <li><a href="#">О студии</a></li>
       <li><a href="#">Web-дизайн</a></li>
@@ -51,51 +51,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script type="text/javascript">
-      var tmpX = 0;
-      function open(el) {
-        var background = document.getElementsByClassName('backgroundCircle')[0];
-        background.style['width'] = '25px';
-        background.style['height'] = '25px';
-        background.style['left'] = "258px";
-        background.style['top'] = "33px";
-        background.style['display'] = "block";
-      el.style["position"] = "fixed";
-      el.style["left"] = "258px";
-      var openId = setInterval(function() {
-      tmpX = tmpX + 1;
-      el.style.backgroundPosition = "-"+tmpX+"00% -100%";
-      background.style['width'] = (parseInt(background.style['width']) + 250)+"px";
-      background.style['height'] = (parseInt(background.style['height']) + 250)+"px";
-      background.style['left'] = (parseInt(background.style['left']) - 125)+"px";
-      background.style['top'] = (parseInt(background.style['top']) - 95)+"px";
-      if (tmpX == 9) {clearInterval(openId); document.getElementsByClassName('menuBlock')[0].children[0].style.display = 'block';}
-      }, 100);
-      }
-
-      function close(el) {
-        var background = document.getElementsByClassName('backgroundCircle')[0];
-        background.style['width'] = '2275px';
-        background.style['height'] = '2275px';
-        background.style['left'] = "-867px";
-        background.style['top'] = "-822px";
-        document.getElementsByClassName('menuBlock')[0].children[0].style.display = 'none';
-      var closeId = setInterval(function() {
-      tmpX = tmpX - 1;
-      el.style.backgroundPosition = "-"+tmpX+"00% -100%";
-      background.style['width'] = (parseInt(background.style['width']) - 250)+"px";
-      background.style['height'] = (parseInt(background.style['height']) - 250)+"px";
-      background.style['left'] = (parseInt(background.style['left']) + 125)+"px";
-      background.style['top'] = (parseInt(background.style['top']) + 95)+"px";
-      if (tmpX == 0) {clearInterval(closeId);
-      background.style['display'] = "none";
-      el.style["position"] = "absolute";
-      el.style["left"] = "203px";}
-      }, 100);
-      }
-
-      function openClose() {
-      if (tmpX == 0) {open(document.getElementById('menuHumburger'));} else {close(document.getElementById('menuHumburger'));}
-      }
+    
     /*$(document).ready(function(){
       $('.sliderCourses').slick({
       slidesToShow: 1,
