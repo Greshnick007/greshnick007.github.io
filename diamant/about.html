@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/style.bundle.css">
     <title>Студия веб-дизайна Диамант</title>
   </head>
-  <body id="contact">
+  <body id="page">
     <header class="container-fluid section">
       <div class="row">
         <div class="col-xs-6">
@@ -23,58 +23,80 @@
         </div>
       </div>
     </header>
-    <section class="container contactContainer">
+    <section class="sectionBlock">
+      <div class="container aboutContainer">
       <div class="row">
-        <p class="namePage">Контакты</p>
-        <span class="separator"></span>
-        <div id="map"></div>
-        <div class="aboutMap">
-          <ul class="aboutMap__info">
-            <li>
-              <span>Адрес</span><span>Санкт-Петербург, улица Гастелло, 12</span>
-            </li>
-            <li>
-              <span>Телефон</span><span>+7 (812) 373-32-68</span>
-            </li>
-            <li>
-              <span>E-mail</span><span>diamant@mail.ru</span>
-            </li>
-          </ul>
-          <ul class="aboutMap__socialnetwork">
-            <li><a href="#"><img src="./img/vkContact.png" alt="Диамант ВКонтакте"></a></li>
-            <li><a href="#"><img src="./img/facebookContact.png" alt="Диамант Facebook"></a></li>
-            <li><a href="#"><img src="./img/instagramContact.png" alt="Диамант Instagram"></a></li>
-          </ul>
+          <div class="col-xs-12">
+            <p class="namePage">О Студии</p>
+            <span class="separator"></span>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6">
+            <div class="about__leftBlock">
+              <p id="quotes">“</p>
+              <p class="about__leftBlock_citate">
+                Lorem ipsum dolor sit amet, cons ectetur adi pisicing elit, sed do eius mod tempor incididunt utla bore et. dolore magna aliqua. Ut
+              </p>
+              <p class="about__leftBlock_author">
+                Шуклина Алла Сергеевна
+                <span>Арт-директор</span>
+              </p>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="about__rightBlock">
+              <p class="about__rightBlock_citate">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </p>
+              <p class="about__rightBlock_citate">
+                Duis aute irure dolor in reprehenderit in voluptateve lit esse cillum dolore eu fugiat nulla pariatur.
+              </p>
+              <p class="about__rightBlock_citate">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, to tam rem aperiam, eaque ipsa quae abillo.
+              </p>
+            </div>
+          </div>
         </div>
-        <script src="https://api-maps.yandex.ru/2.1/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
-        <script type="text/javascript">
-        ymaps.ready(init);
-          function init() {
-
-            var myMap = new ymaps.Map("map", {
-                center: [59.859623, 30.324070],
-                zoom: 17
-            });
-
-            myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
-            hintContent: 'Студия Dиамант'
-            }, {
-                // Опции.
-                // Необходимо указать данный тип макета.
-                iconLayout: 'default#image',
-                // Своё изображение иконки метки.
-                iconImageHref: 'img/metka.png',
-                // Размеры метки.
-                iconImageSize: [30, 42],
-                // Смещение левого верхнего угла иконки относительно
-                // её "ножки" (точки привязки).
-                iconImageOffset: [-5, -38]
-            });
-
-            myMap.geoObjects.add(myPlacemark);
-
-          }
-        </script>
+      </div>
+    </section>
+    <section class="sectionBlock">
+      <div class="container teamContainer">
+        <div class="row">
+          <div class="col-xs-4">
+            <div class="peopleCommand">
+              <img src="./img/Alla2.png" alt="Шуклина Алла Сергеевна"/>
+              <p>Шуклина Алла<br/>Сергеевна<span>Арт-директор</span></p>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="peopleCommand">
+              <img src="./img/Stas.png" alt="Сивинский Станислав Андреевич"/>
+              <p>Сивинский Станислав<br/>Андреевич<span>Главный веб-разработчик</span></p>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="peopleCommand">
+              <img src="./img/Jena.png" alt="Шакирзянова Евгения Ильдаровна"/>
+              <p>Шакирзянова Евгения<br/>Ильдаровна<span>Главный дизайнер</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="sectionBlock">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <span class="separator"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3"></div>
+          <div class="col-xs-3"></div>
+          <div class="col-xs-3"></div>
+          <div class="col-xs-3"></div>
+        </div>
       </div>
     </section>
     <footer class="section">
