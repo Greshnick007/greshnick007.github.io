@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Thomas Anders</title>
+	<link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+	<div class="player">
+		<img src="romantic_girl.gif" alt="Lady in Red"/>
+		<p class="timer">0:0:0</p>
+		<div class="titles">
+			<p class="first">asdasd</p>
+			<p class="second">asdas</p>
+		</div>
+		<div class="controlpanel">
+			<button id="play">Play</button>
+			<button id="time">Position</button>
+		</div>
+	</div>
+	<script src="howler.js/dist/howler.min.js"></script>
+	<script>
+		{
+			"use strict";
+
+			let subtitles = [
+					{line: "Gotta need your love", start: 10.28},
+					{line: "I like you dance", start: 12.28},
+					{line: "I belong to you", start: 13.94},
+					{line: "'Cause I see your eyes", start: 17.928},
+					{line: "Inside my mind", start: 20.549333333333333},
+					{line: "Nothing I can do", start: 21.858666666666668},
+					{line: "'Cause I need your smile, my baby,", start: 26.32},
+					{line: "Sparkle in your eyes", start: 29.688000000000002},
+					{line: "If you really know", start: 34.28},
+					{line: "Then just tell me so", start: 36.368},
+					{line: "Baby, please, be mine", start: 37.808},
+
+					{line: "I miss you", start: 43.28},
+					{line: "I want you to know", start: 45.48},
+					{line: "I miss you", start: 47.32},
+					{line: "My life has not much time", start: 49.349333333333334},
+					{line: "To erase you from my mind", start: 53.248},
+					{line: "I miss you... Remember", start: 57.30933333333333},
+					{line: "And I will not surrender", start: 61.58933333333333},
+					{line: "And kiss your tears good-bye", start: 65.57866666666666},
+
+					{line: "I can tell you when you dance I know", start: 72.6},
+					{line: "I belong to you", start: 75.93866666666666},
+					{line: "'Cause I like to dream of you, baby,", start: 80.42933333333333},
+					{line: "What I like to do", start: 83.8},
+					{line: "If you'd like to be my baby,", start: 88.528},
+					{line: "Stand here, by my side", start: 91.688},
+					{line: "If you really know", start: 96.32},
+					{line: "Then just tell me so", start: 98.24},
+					{line: "Baby, make it right", start: 99.8},
+
+
+					{line: "I miss you", start: 105.50933333333333},
+					{line: "I want you to know", start: 107.52},
+					{line: "I miss you", start: 109.50933333333333},
+					{line: "My life has not much time", start: 111.4},
+					{line: "To erase you from my mind", start: 115.46933333333334},
+					{line: "I miss you... Remember", start: 119.408},
+					{line: "And I will not surrender", start: 123.44},
+					{line: "And kiss your tears good-bye", start: 127.34933333333333},
+
+					{line: "I miss you... Remember", start: 145.65866666666668},
+					{line: "My life has not much time...", start: 149.30933333333334},
+
+					{line: "I miss you", start: 155.37866666666667},
+					{line: "I want you to know", start: 157.49866666666668},
+					{line: "I miss you", start: 159.49866666666668},
+					{line: "My life has not much time", start: 161.528},
+					{line: "To erase you from my mind", start: 165.34933333333333},
+					{line: "I miss you... Remember", start: 169.448},
+					{line: "And I will not surrender", start: 173.58933333333334},
+					{line: "And kiss your tears good-bye", start: 177.648},
+
+					{line: "Good-bye...", start: 183.648},
+					{line: "I will always miss you...", start: 186.76},
+					{line: "Good-bye...", start: 192.28}
+			];
+			
+			let timerId,
+				j = 0,
+				index = 0;
+
+			song = new Howl({
+				src: ['songs/Tomas Anders - I Miss You .mp3'],
+				onend: () => {
+					clearInterval(timerId);
+					index = 0;
+				}
+				//Путь до mp3 для воспроизведения музыки
+			});
+
+			document.querySelector("#time").addEventListener("click", () => {
+				console.log(song.seek());
+			});
+
+			document.querySelector("#play").addEventListener("click", () => {
+				song.play();
+				timerId = setInterval(() => {
+					if (song.state() == "loaded") {
+						if (song.seek() < song.duration()) {
+						let min = Math.floor(song.seek()/60),
+							sec = Math.floor(song.seek() - min * 60);
+						document.querySelector(".timer").innerText = ((min < 10) ? "0"+min : min) +" : "+((sec < 10) ? "0"+sec : sec);
+							if (subtitles.length > index) {
+							if (song.seek() >= subtitles[index].start) {
+									document.querySelector(".titles > .first").innerText = subtitles[index].line;
+									if (subtitles.length > index+1) {document.querySelector(".titles > .second").innerText = subtitles[index+1].line;} else {document.querySelector(".titles > .second").innerText = '';}				
+								index++;
+								}
+							} else {
+								document.querySelector(".titles > .first").innerText = '';
+								document.querySelector(".titles > .second").innerText = '';
+							}
+						}
+					}
+				}, 100);
+			});
+
+			
+		}
+	</script>
+</body>
+</html>
