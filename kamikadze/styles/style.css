@@ -1,0 +1,52 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	background-color: #000;
+}
+
+.player {
+	text-align: center;
+	position: relative;
+}
+
+.player img {
+	height: 80vh;
+}
+
+.player .timer {
+	color: #efefef;
+    font-size: 18px;
+    font-family: Arial;
+    position: absolute;
+    top: 0;
+    left: 35vw;
+}
+
+.titles {
+	position: absolute;
+    left: 34vw;
+    bottom: 40px;
+    width: 450px;
+    color: #efefef;
+    font-family: Arial;
+    font-size: 20px;
+}
+
+@keyframes visibility {
+from {opacity: 0}
+100% {opacity: 1}
+}
+
+.titles p {
+	text-align: center;
+   	margin: 0; 
+}
+
+.visibility {
+	animation: visibility  1s ease-in-out;
+}
+
+.controlpanel button {
+	position: relative;
+	padding: 5px 20px;
+}

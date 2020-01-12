@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Камикадзе</title>
+	<link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+	<div class="player">
+		<img src="solders.gif" alt="Kamikadze"/>
+		<p class="timer">0:0</p>
+		<div class="titles">
+			<p class="first"></p>
+			<p class="second"></p>
+		</div>
+		<div class="controlpanel">
+			<button id="play">Play</button>
+			<button id="stop">Stop</button>
+			<button id="time">Position</button>
+		</div>
+	</div>
+	<div style="float: left">
+		<pre style="color: #fefefe">
+		Я по совести указу
+		Записался в камикадзе.
+		С полной бомбовой загрузкой лечу.
+		В баках топлива - до цели,
+		Ну а цель, она в прицеле,
+		И я взять её сегодня хочу.
+
+		Рвутся нервы на пределе -
+		Погибать - так за идею.
+		И вхожу я в свой последний вираж.
+		А те, которые на цели,
+		Глядя ввысь, оцепенели,
+		Знают, чем грозит им мой пилотаж!
+
+		Парашют оставлен дома,
+		На траве аэродрома.
+		Даже если захочу - не свернуть.
+		Облака перевернулись,
+		И на лбу все жилы вздулись,
+		И сдавило перегрузками грудь.
+		</pre>
+	</div>
+	<div style="float: left;">
+		<pre style="color: #fefefe">
+		От снарядов в небе тесно,
+		Я пикирую отвесно,
+		Исключительно красиво иду.
+		Три секунды мне осталось,
+		И не жаль, что жил так мало,
+		Зацветут мои деревья в саду!
+
+		Не добраться им до порта,
+		Вот и всё. Касаюсь борта,
+		И в расширенных зрачках отражён
+		Весь мой долгий путь до цели,
+		Той, которая в прицеле.
+		Мне взрываться за других есть резон!
+
+		Есть резон своим полётом
+		Вынуть душу из кого-то,
+		И в кого-то свою душу вложить.
+		Есть резон дойти до цели,
+		Той, которая в прицеле,
+		Да потому что остальным надо жить!
+		</pre>
+	</div>
+	<script src="howler.js/dist/howler.min.js"></script>
+	<script>
+		{
+			"use strict";
+
+			let subtitles = [
+				{line: "Я по совести указу", start: 23.006002},
+				{line: "Записался в камикадзе.", start: 27.105381},
+				{line: "С полной бомбовой загрузкой лечу.", start: 30.828464},
+				{line: "В баках топлива - до цели,", start: 37.919715},
+				{line: "Ну а цель, она в прицеле,", start: 41.912129},
+				{line: "И я взять её сегодня хочу.", start: 45.778967},
+
+				{line: "Рвутся нервы на пределе -", start: 53.053933},
+				{line: "Погибать - так за идею.", start: 57.012533},
+				{line: "И вхожу я в свой последний вираж.", start: 60.437802},
+				{line: "А те, которые на цели,", start: 66.515184},
+				{line: "Глядя ввысь, оцепенели,", start: 69.901718},
+				{line: "Знают, чем грозит им мой пилотаж!", start: 73.386122},
+
+				{line: "Парашют оставлен дома,", start: 82.008297},
+				{line: "На траве аэродрома.", start: 85.075214},
+				{line: "Даже если захочу - не свернуть.", start: 88.804779},
+				{line: "Облака перевернулись,", start: 96.232289},
+				{line: "И на лбу все жилы вздулись,", start: 100.088262},
+				{line: "И сдавило перегрузками грудь.", start: 103.804357},
+
+				{line: "От снарядов в небе тесно,", start: 111.40919},
+				{line: "Я пикирую отвесно,", start: 115.159689},
+				{line: "Исключительно красиво иду.", start: 118.667938},
+				{line: "Три секунды мне осталось,", start: 124.522436},
+				{line: "И не жаль, что жил так мало,", start: 128.28054},
+				{line: "Зацветут мои деревья в саду!", start: 131.867534},
+
+				{line: "Не добраться им до порта,", start: 143.755722},
+				{line: "Вот и всё. Касаюсь борта,", start: 147.038014},
+				{line: "И в расширенных зрачках отражён", start: 150.653792},
+				{line: "Весь мой долгий путь до цели,", start: 157.894602},
+				{line: "Той, которая в прицеле.", start: 161.572161},
+				{line: "Мне взрываться за других есть резон!", start: 165.758441},
+
+				{line: "Есть резон своим полётом", start: 173.217256},
+				{line: "Вынуть душу из кого-то,", start: 176.934032},
+				{line: "И в кого-то свою душу вложить.", start: 180.504293},
+				{line: "Есть резон дойти до цели,", start: 186.499124},
+				{line: "Той, которая в прицеле,", start: 189.945598},
+				{line: "Да потому что остальным надо жить!", start: 193.720461},
+				{line: "Есть резон дойти до цели,", start: 199.439882},
+				{line: "Той, которая в прицеле,", start: 203.195708},
+				{line: "Да потому что остальным надо жить!", start: 207.465187}
+			];
+			
+			let timerId,
+				j = 0,
+				index = 0;
+
+			song = new Howl({
+				src: ['songs/Kamikadze.mp3'],
+				onend: () => {
+					clearInterval(timerId);
+					index = 0;
+				}
+				//Путь до mp3 для воспроизведения музыки
+			});
+
+			document.querySelector("#time").addEventListener("click", () => {
+				console.log(song.seek());
+			});
+
+			document.querySelector("#stop").addEventListener("click", () => {
+				song.stop();
+				document.querySelector(".titles > .first").innerText = '';
+				document.querySelector(".titles > .second").innerText = '';
+			});
+
+			document.querySelector("#play").addEventListener("click", () => {
+				song.play();
+				timerId = setInterval(() => {
+					if (song.state() == "loaded") {
+						if (song.seek() < song.duration()) {
+						let min = Math.floor(song.seek()/60),
+							sec = Math.floor(song.seek() - min * 60);
+						document.querySelector(".timer").innerText = ((min < 10) ? "0"+min : min) +" : "+((sec < 10) ? "0"+sec : sec);
+							if (subtitles.length > index) {
+							if (song.seek() >= subtitles[index].start) {
+									document.querySelector(".titles > .first").innerText = subtitles[index].line;
+									if (subtitles.length > index+1) {document.querySelector(".titles > .second").innerText = subtitles[index+1].line;} else {document.querySelector(".titles > .second").innerText = '';}				
+								index++;
+								}
+							} else {
+								document.querySelector(".titles > .first").innerText = '';
+								document.querySelector(".titles > .second").innerText = '';
+							}
+						}
+					}
+				}, 100);
+			});
+
+			
+		}
+	</script>
+</body>
+</html>
