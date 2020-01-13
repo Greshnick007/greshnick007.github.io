@@ -7,8 +7,9 @@
 </head>
 <body>
 	<div class="player">
-		<img src="solders.gif" alt="Kamikadze"/>
+		<img src="images/solders.gif" alt="Kamikadze"/>
 		<p class="timer">0:0</p>
+		<p class="playerTitle"></p>
 		<div class="titles">
 			<p class="first"></p>
 			<p class="second"></p>
@@ -72,6 +73,31 @@
 		{
 			"use strict";
 
+			let images = [
+				{image: "kamikadze.gif", title: "За тех, кого мы любим...", duration: 7},
+				{image: "1.jpg", title: "", duration: 10},
+				{image: "3.jpeg", title: "Бесстрашен не тот кто ничего не боится,<br/>а тот кто всё понял и не отступил...", duration: 15},
+				{image: "kamikadze.jpg", title: "", duration: 10},
+				{image: "seaways.gif", title: "", duration: 5},
+				{image: "2.jpg", title: "", duration: 10},
+				{image: "4.jpg", title: "", duration: 10},
+				{image: "5.jpeg", title: "", duration: 10},
+				{image: "6.jpg", title: "", duration: 10},
+				{image: "7.jpg", title: "", duration: 10},
+				{image: "8.jpg", title: "", duration: 10},
+				{image: "goodway.gif", title: "", duration: 4},
+				{image: "9.jpg", title: "", duration: 10},
+				{image: "10.jpg", title: "", duration: 10},
+				{image: "boom.gif", title: "", duration: 7},	
+				{image: "11.jpg", title: "", duration: 10},
+				{image: "12.jpg", title: "", duration: 10},
+				{image: "13.jpg", title: "", duration: 10},
+				{image: "16.jpg", title: "", duration: 10},
+				{image: "19.jpg", title: "", duration: 10},
+				{image: "15.jpg", title: "", duration: 10},
+				{image: "14.jpg", title: "", duration: 40}
+			];
+
 			let subtitles = [
 				{line: "Я по совести указу", start: 23.006002},
 				{line: "Записался в камикадзе.", start: 27.105381},
@@ -120,14 +146,20 @@
 			];
 			
 			let timerId,
+				timerImageId,
 				j = 0,
-				index = 0;
+				index = 0,
+				indexImage = 0, 
+				timeSec = 0;
 
 			song = new Howl({
 				src: ['songs/Kamikadze.mp3'],
 				onend: () => {
 					clearInterval(timerId);
+					clearInterval(timerImageId);
 					index = 0;
+					indexImage = 0;
+					timeSec = 0;
 				}
 				//Путь до mp3 для воспроизведения музыки
 			});
@@ -163,6 +195,25 @@
 						}
 					}
 				}, 100);
+
+				timerImageId = setInterval(() => {
+					if (indexImage < images.length) {
+						if (timeSec == images[indexImage].duration || timeSec == 0) {
+							if (timeSec !== 0) {indexImage++};
+							document.querySelector(".player > img").src = "images/"+images[indexImage].image;
+							if (images[indexImage].title == '') {
+								document.querySelector(".playerTitle").style.display = "none";
+							} else {
+								document.querySelector(".playerTitle").style.display = "block";
+								document.querySelector(".playerTitle").innerHTML = images[indexImage].title;
+							}
+							timeSec = 0;
+						};
+						timeSec++;
+						console.log(timeSec+" - timeSec");
+					} else {indexImage = 0; timeSec = 0;}
+					console.log(indexImage+" - indexImage");
+				}, 1000);
 			});
 
 			

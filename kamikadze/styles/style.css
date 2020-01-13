@@ -13,6 +13,20 @@ html, body {
 	height: 80vh;
 }
 
+.playerTitle {
+	color: blue;
+    font-size: 16px;
+    background-color: silver;
+    width: 353px;
+    position: absolute;
+    top: 75px;
+    left: 36vw;
+    opacity: 0.7;
+    font-family: Arial;
+    padding: 5px;
+    display: none;
+}
+
 .player .timer {
 	color: #efefef;
     font-size: 18px;
