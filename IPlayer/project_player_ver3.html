@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Модальное окно</title>
+	<link rel="stylesheet" href="styles/style.css">
+	<!--Следить за ссылкой до CSS-->
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><i class="fas fa-user"></i>Профиль</li>
+				<li><i class="fas fa-list-ul"></i>Список треков</li>
+				<li><i class="fas fa-tools"></i>Настройки</li>
+			</ul>
+			<div class="nav-background"></div>
+		</nav>
+	</header>
+	<div class="player">
+		<div class="player-form">
+			<div class="player-list">
+				<ul>
+					<!--Проигрывание песни по нажатию клавиши мыши (ЛКМ)-->
+				</ul>
+				<button class="stopPlay">STOP</button>
+			</div>
+			<div class="player-body">
+				<img class="pictureOfSong" src="images/default.webp" alt="Описание песни">
+				<div id="waveform"></div>
+				<p class="titleOfSong"></p>
+				<p class="singerOfSong"></p>
+				<p class="albumOfSong"></p>
+				<button class="next">Next</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://unpkg.com/wavesurfer.js"></script>
+	<script src="jsmediatags/dist/jsmediatags.min.js"></script>
+	<script>
+		{
+			"use strict";
+
+			(function() {
+
+				class IPlayer {
+
+				   constructor (playerList) {
+					   	this.tracks = [
+					    	{ path : "Игорь_Корнелюк___Город,_которого_нет.mp3" },
+					    	{ path : "Петлюра Виктор - Ты как солнце.mp3" },
+							{ path : "Натали_-_Шахерезада.mp3" },
+							{ path : "Серик Мусалимов - Мой Казахстан ( Здравствуй Cтолица ).mp3" },
+							{ path : "Кайрат Нуртас - Байка.mp3"},
+							{ path : "Nurlan_Esembaev_i_gruppa_Tri_zhelaniya_-_Roza_belaya._(mp3.mn).mp3"},
+							{ path : "КГБ_-_Я_тебя_не_отдам.mp3"},
+							{ path : "Евгений Коновалов - Настя.mp3"},
+							{ path : "Беретта Юлия - Секси (OST Проклятый рай).mp3"},
+							{ path : "Катя_Ростовцева___Брутальный_мужчина.mp3" },
+							{ path : "Комбинация - Модница.mp3" },
+							{ path : "Корни_-_Позови_меня.mp3" }
+					    ];
+
+					    this.wavesurfer = WaveSurfer.create({
+						    container: '#waveform',
+						    waveColor: 'violet',
+						    progressColor: 'purple',
+						    barWidth: 1,
+						    barHeight: 1,
+						    barGap: 2
+						});
+
+						this.wavesurfer.on('ready', () => {
+						    this.wavesurfer.play();
+						});
+
+						this.wavesurfer.on('finish', () => {
+							if (this.currentSong+1 > this.tracks.length-1) {this.currentSong = 0;} else {this.currentSong = this.currentSong + 1;}
+							this.playSong(this.currentSong);
+							
+						});
+
+					    this.playerListUl = document.querySelector(playerList);
+				   		this.buildListOfSongs();
+
+				   		document.querySelector(".stopPlay").addEventListener("click", () => {
+				   			this.stop();
+				   		});
+
+				   		document.querySelector(".next").addEventListener("click", () => {
+				   			let currentPosition = 73;
+				   			let durationSong = this.wavesurfer.getDuration();
+				   			this.wavesurfer.seekTo(currentPosition/durationSong);
+				   		});
+				   };
+
+				   buildListOfSongs = () => {
+				   		let self = this;
+				   		self.getID3Tags(0);
+				   };
+
+
+				   addSong = (index, tags) => {
+				   	let self = this;
+				   	this.tracks[index].tags = tags;
+				   	let nameOfItem = document.createElement("span");
+						nameOfItem.innerText =  (this.tracks[index].tags.title !== undefined) ? this.tracks[index].tags.artist+" - "+this.tracks[index].tags.title : this.tracks[index].path;
+						nameOfItem.style.overflow = "hidden";
+						nameOfItem.style.width = "245px";
+						nameOfItem.style.display = "inline-block";
+						nameOfItem.style.whiteSpace = "nowrap";
+					let iconOfItem = document.createElement("i");
+						iconOfItem.classList.add("fas");
+						iconOfItem.classList.add("fa-chevron-right");
+					let songLi = document.createElement("li");
+						songLi.appendChild(nameOfItem);
+						songLi.appendChild(iconOfItem);
+						songLi.value = index;
+						songLi.classList.add("player-list-item");
+						songLi.addEventListener("click", function () {
+						   	self.playSong(this.value);
+						});
+					this.playerListUl.appendChild(songLi);
+				}
+
+				    getID3Tags = (indexOfSong) => {
+				   		let self = this;
+						// From remote host
+						return new Promise(function(resolve, reject) {
+							let jsmediatags = window.jsmediatags;
+							jsmediatags.read("http://localhost/jsbasic/IPlayer/sounds/"+self.tracks[indexOfSong].path, {
+						 	onSuccess: function(tag) {
+						 		if (self.tracks.length-1 >= indexOfSong+1) {	self.getID3Tags(indexOfSong+1); }
+						 		self.addSong(indexOfSong, tag.tags);
+
+						  	},
+						   onError: function(error) {
+							    console.log(':(', error.type, error.info);
+							}
+							});
+						});
+						
+				   };
+
+				   stop = () => {
+		    			if (this.currentSong !== undefined) {
+					    this.wavesurfer.stop();
+					    this.playerListUl.children[this.currentSong].querySelector("i").classList.add("fa-chevron-right");
+						this.playerListUl.children[this.currentSong].querySelector("i").classList.remove("fa-pause-circle");
+					    }
+		    		}
+
+					setID3Tags = (indexOfSong) => {
+						let image = this.tracks[indexOfSong].tags['picture'];
+				          if (image) {
+				            let base64String = "";
+				            for (let i = 0; i < image.data.length; i++) {
+				                base64String += String.fromCharCode(image.data[i]);
+				            }
+				            let base64 = "data:" + image.format + ";base64," +
+				                    window.btoa(base64String);
+				            document.querySelector('.player-body > .pictureOfSong').setAttribute('src',base64);
+				          } else {
+				            document.querySelector('.player-body > .pictureOfSong').setAttribute('src',"images/default.webp");
+				          }
+						document.querySelector(".player-body > .titleOfSong").innerText = this.tracks[indexOfSong].tags["title"];
+						document.querySelector(".player-body > .singerOfSong").innerText = this.tracks[indexOfSong].tags["artist"];
+						document.querySelector(".player-body > .albumOfSong").innerText = this.tracks[indexOfSong].tags["album"];
+					}
+
+				   playSong = (index) => {
+				   		this.currentSong = index;
+				   		this.wavesurfer.load("sounds/"+this.tracks[index].path);
+				   		this.clearIcons();
+				   		this.playerListUl.children[index].querySelector("i").classList.remove("fa-chevron-right");
+						this.playerListUl.children[index].querySelector("i").classList.add("fa-pause-circle");
+				   		this.setID3Tags(index);
+				   }
+
+				   clearIcons = () => {
+				   		for (let i = this.tracks.length - 1; i >= 0; i--) {
+				   			this.playerListUl.children[i].querySelector("i").classList.add("fa-chevron-right");
+							this.playerListUl.children[i].querySelector("i").classList.remove("fa-pause-circle");
+				   		}
+				   }
+
+				}
+
+				let player = new IPlayer(".player-list > ul");
+			})()
+		}
+	</script>
+</body>
+</html>
