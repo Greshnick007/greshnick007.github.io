@@ -130,7 +130,7 @@
 						// From remote host
 						return new Promise(function(resolve, reject) {
 							let jsmediatags = window.jsmediatags;
-							jsmediatags.read("sounds/"+self.tracks[indexOfSong].path, {
+							jsmediatags.read("https://greshnick007.github.io/IPlayer/sounds/"+self.tracks[indexOfSong].path, {
 						 	onSuccess: function(tag) {
 						 		if (self.tracks.length-1 >= indexOfSong+1) {	self.getID3Tags(indexOfSong+1); }
 						 		self.addSong(indexOfSong, tag.tags);
