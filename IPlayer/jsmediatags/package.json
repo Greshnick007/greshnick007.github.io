@@ -63,7 +63,7 @@
     "google-closure-compiler": "20170626.0.0",
     "jest-cli": "^24.8.0",
     "react": "^16.2.0",
-    "react-native": "^0.60.0",
+    "react-native": "^0.62.3",
     "watchify": "^3.11.1"
   },
   "scripts": {
